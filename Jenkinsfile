@@ -1,0 +1,27 @@
+node {
+    def now = sh(returnStdout: true, script: 'date +%Y%m%d').trim()
+    def ver = ""
+    def docker_img = "shubb30/django-base"
+
+    stage("Build Container") {
+        dir('src_temp') {
+            checkout scm
+	        ver = sh(returnStdout: true, script:  "cat src/VERSION.txt").trim()
+	        sh "docker build -t='${docker_img}' -f build/Dockerfile ."
+	    }    
+    }
+    stage("Test") {
+
+    }
+    stage("Push Docker"){
+	    if (env.BRANCH_NAME in ["master", "release-${ver}".toString()]) {
+	    	sh("docker tag ${docker_img} ${docker_img}:${ver}")
+	    	sh("docker tag ${docker_img} ${docker_img}:latest")
+	    }
+	    sh("docker tag ${docker_img} ${docker_img}:${ver}-${env.BUILD_NUMBER}")
+
+	    //withDockerRegistry([credentialsId: 'dockerhub']) {
+	    //	sh("docker push ${docker_img}")
+	    //}
+    }
+}
