@@ -20,8 +20,8 @@ node {
 	    }
 	    sh("docker tag ${docker_img} ${docker_img}:${ver}-${env.BUILD_NUMBER}")
 
-	    //withDockerRegistry([credentialsId: 'dockerhub']) {
-	    //	sh("docker push ${docker_img}")
-	    //}
+	    withDockerRegistry([credentialsId: 'dockerhub']) {
+	    	sh("docker push ${docker_img}")
+	    }
     }
 }
