@@ -5,7 +5,7 @@ RUN apt-get update \
 	vim \
 	&& rm -rf /var/lib/apt/lists/*
 
-ADD build/requirements.txt /root
+ADD requirements.txt /root
 RUN pip install -r /root/requirements.txt
 RUN cp /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
 
