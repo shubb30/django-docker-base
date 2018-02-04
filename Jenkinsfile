@@ -7,7 +7,7 @@ node {
         dir('src_temp') {
             checkout scm
 	        ver = sh(returnStdout: true, script:  "cat VERSION.txt").trim()
-	        sh "docker build -t='${docker_img}' Dockerfile ."
+	        sh "docker build -t='${docker_img}' ."
 	    }    
     }
     stage("Test") {
