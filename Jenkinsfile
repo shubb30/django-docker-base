@@ -10,9 +10,6 @@ node {
 	        sh "docker build -t='${docker_img}' ."
 	    }    
     }
-    stage("Test") {
-
-    }
     stage("Push Docker"){
 	    if (env.BRANCH_NAME in ["master", "release-${ver}".toString()]) {
 	    	sh("docker tag ${docker_img} ${docker_img}:${ver}")
