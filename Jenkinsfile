@@ -17,7 +17,7 @@ node {
 	    }
 	    sh("docker tag ${docker_img} ${docker_img}:${ver}-${env.BUILD_NUMBER}")
 
-	    withDockerRegistry([credentialsId: 'dockerhub']) {
+	    withDockerRegistry([credentialsId: 'dockerhub-2018-04-30']) {
 	    	sh("docker push ${docker_img}")
 	    }
     }
