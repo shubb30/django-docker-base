@@ -11,10 +11,6 @@ node {
         }    
     }
     stage("Push Docker"){
-        if (env.BRANCH_NAME in ["master", "release-${ver}".toString()]) {
-            sh("docker tag ${docker_img} ${docker_img}:${ver}")
-            sh("docker tag ${docker_img} ${docker_img}:latest")
-        }
         sh("docker tag ${docker_img} ${docker_img}:${ver}-${env.BUILD_NUMBER}")
         sh("docker tag ${docker_img} ${docker_img}:${ver}")
         sh("docker tag ${docker_img} ${docker_img}:latest")
