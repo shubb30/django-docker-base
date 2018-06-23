@@ -6,19 +6,20 @@ node {
     stage("Build Container") {
         dir('src_temp') {
             checkout scm
-	        ver = sh(returnStdout: true, script:  "cat VERSION.txt").trim()
-	        sh "docker build -t='${docker_img}' ."
-	    }    
+            ver = sh(returnStdout: true, script:  "cat VERSION.txt").trim()
+            sh "docker build -t='${docker_img}' ."
+        }    
     }
     stage("Push Docker"){
-	    if (env.BRANCH_NAME in ["master", "release-${ver}".toString()]) {
-	    	sh("docker tag ${docker_img} ${docker_img}:${ver}")
-	    	sh("docker tag ${docker_img} ${docker_img}:latest")
-	    }
-	    sh("docker tag ${docker_img} ${docker_img}:${ver}-${env.BUILD_NUMBER}")
+        if (env.BRANCH_NAME in ["master", "release-${ver}".toString()]) {
+            sh("docker tag ${docker_img} ${docker_img}:${ver}")
+            sh("docker tag ${docker_img} ${docker_img}:latest")
+        }
+        sh("docker tag ${docker_img} ${docker_img}:${ver}-${env.BUILD_NUMBER}")
 
-	    withDockerRegistry([credentialsId: 'dockerhub-2018-04-30']) {
-	    	sh("docker push ${docker_img}")
-	    }
+        withDockerRegistry([credentialsId: 'dockerhub-2018-04-30']) {
+            sh("docker push ${docker_img}:${ver}-${env.BUILD_NUMBER}")
+        }
     }
 }
+
