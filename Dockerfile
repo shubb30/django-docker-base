@@ -1,10 +1,5 @@
 from python:2.7
 ENV PYTHONUNBUFFERED 1
-RUN apt-get update \
-	&& apt-get install -y \
-	vim \
-	nginx \
-	&& rm -rf /var/lib/apt/lists/*
 
 ADD requirements.txt /root
 RUN pip install -r /root/requirements.txt
