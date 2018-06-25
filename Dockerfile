@@ -10,10 +10,18 @@ RUN apk add --no-cache \
 
 ADD requirements.txt /root
 
-RUN apk add --no-cache --virtual .build-deps mariadb-dev mariadb-client mariadb-libs mariadb-client-libs python-dev gcc musl-dev \
-    && pip install -r /root/requirements.txt \
-    && apk del .build-deps \
-    && rm /root/requirements.txt
+RUN apk --no-cache add --virtual build-dependencies \
+    build-base \
+    py-mysqldb \
+    gcc \
+    libc-dev \
+    libffi-dev \
+    mariadb-dev \
+    && pip install -qq -r /root/requirements.txt \
+    && rm -rf .cache/pip \
+    && apk del build-dependencies
+
+RUN apk -q --no-cache add mariadb-client-libs
 
 RUN mkdir -p /var/log/django
 RUN mkdir /var/log/gunicorn
