@@ -17,11 +17,14 @@ RUN apk --no-cache add --virtual build-dependencies \
     libc-dev \
     libffi-dev \
     mariadb-dev \
-    && pip install -qq -r /root/requirements.txt \
+    && pip install MySQL-python \
     && rm -rf .cache/pip \
     && apk del build-dependencies
 
-RUN apk -q --no-cache add mariadb-client-libs
+RUN apk --no-cache add mariadb-client-libs
+
+RUN pip install -r /root/requirements.txt \
+    && rm /root/requirements.txt
 
 RUN mkdir -p /var/log/django
 RUN mkdir /var/log/gunicorn
