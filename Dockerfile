@@ -17,7 +17,7 @@ RUN apk --no-cache add --virtual build-dependencies \
     libc-dev \
     libffi-dev \
     mariadb-dev \
-    && pip install MySQL-python \
+    && pip install MySQL-python gevent \
     && rm -rf .cache/pip \
     && apk del build-dependencies
 
