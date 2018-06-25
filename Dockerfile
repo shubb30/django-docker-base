@@ -9,6 +9,7 @@ RUN apk add --no-cache \
     && apk del tzdata
 
 ADD requirements.txt /root
+ADD requirements-deps.txt /root
 
 RUN apk --no-cache add --virtual build-dependencies \
     build-base \
@@ -18,14 +19,15 @@ RUN apk --no-cache add --virtual build-dependencies \
     libffi-dev \
     mariadb-dev \
     python2-dev \
-    && pip install MySQL-python gevent \
+    && pip install -r  /root/requirements-deps.txt \
     && rm -rf .cache/pip \
     && apk del build-dependencies
 
 RUN apk --no-cache add mariadb-client-libs
 
 RUN pip install -r /root/requirements.txt \
-    && rm /root/requirements.txt
+    && rm /root/requirements.txt \
+    && rm /root/requirements-deps.txt
 
 RUN mkdir -p /var/log/django
 RUN mkdir /var/log/gunicorn
