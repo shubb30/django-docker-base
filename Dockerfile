@@ -13,7 +13,6 @@ ADD requirements-deps.txt /root
 
 RUN apk --no-cache add --virtual build-dependencies \
     build-base \
-    py-mysqldb \
     gcc \
     libc-dev \
     libffi-dev \
@@ -23,7 +22,8 @@ RUN apk --no-cache add --virtual build-dependencies \
     && rm -rf .cache/pip \
     && apk del build-dependencies
 
-RUN apk --no-cache add mariadb-client-libs
+RUN apk --no-cache add \
+    mariadb-client-libs
 
 RUN pip install -r /root/requirements.txt \
     && rm /root/requirements.txt \
