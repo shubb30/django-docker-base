@@ -1,12 +1,11 @@
 node {
     def now = sh(returnStdout: true, script: 'date +%Y%m%d').trim()
-    def ver = ""
     def docker_img = "shubb30/django-base"
 
     stage("Build Container") {
         dir('src_temp') {
             checkout scm
-            ver = sh(returnStdout: true, script:  "cat VERSION.txt").trim()
+            def ver = sh(returnStdout: true, script:  "cat VERSION.txt").trim()
             sh "docker build -t='${docker_img}' ."
         }    
     }
