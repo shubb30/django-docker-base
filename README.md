@@ -1,4 +1,4 @@
-# docker-django-base
+# django-docker-base
 
 This is meant to be a base Docker container for creating a containerized Django app. This can be used in the FROM statement in a Dockerfile as a base container with Django already installed.
 
