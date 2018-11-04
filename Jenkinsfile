@@ -11,14 +11,10 @@ node {
         }    
     }
     stage("Push Docker"){
-        sh("docker tag ${docker_img} ${docker_img}:${ver}-${env.BUILD_NUMBER}")
         sh("docker tag ${docker_img} ${docker_img}:${ver}")
-        sh("docker tag ${docker_img} ${docker_img}:latest")
 
         withDockerRegistry([credentialsId: 'dockerhub-2018-04-30']) {
-            sh("docker push ${docker_img}:${ver}-${env.BUILD_NUMBER}")
             sh("docker push ${docker_img}:${ver}")
-            sh("docker push ${docker_img}:latest")
         }
     }
 }
