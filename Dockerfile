@@ -16,14 +16,14 @@ RUN apk --no-cache add --virtual build-dependencies \
     libffi-dev \
     mariadb-dev \
     python2-dev \
-    && pip install -r  /root/requirements-deps.txt \
+    && pip3 install -r  /root/requirements-deps.txt \
     && rm -rf .cache/pip \
     && apk del build-dependencies
 
 RUN apk --no-cache add \
     mariadb-client-libs
 
-RUN pip install -r /root/requirements.txt \
+RUN pip3 install -r /root/requirements.txt \
     && rm /root/requirements.txt \
     && rm /root/requirements-deps.txt
 
