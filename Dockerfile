@@ -1,9 +1,8 @@
-FROM alpine:3.7
+FROM alpine:3.8
 ENV PYTHONUNBUFFERED 1
 
 RUN apk add --no-cache \
-    python \
-    py-pip \
+    python3 \
     tzdata \
     && cp /usr/share/zoneinfo/America/Los_Angeles /etc/localtime \
     && apk del tzdata
