@@ -10,7 +10,6 @@ RUN apk add --no-cache \
 
 ADD requirements.txt /root
 ADD requirements-deps.txt /root
-ADD VERSION.txt /root
 RUN apk --no-cache add --virtual build-dependencies \
     build-base \
     gcc \
