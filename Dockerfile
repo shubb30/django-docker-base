@@ -20,8 +20,8 @@ RUN apk --no-cache add --virtual build-dependencies \
     && rm -rf .cache/pip \
     && apk del build-dependencies
 
-RUN apk --no-cache add \
-    mariadb-client-libs
+#RUN apk --no-cache add \
+#    mariadb-client-libs
 
 RUN pip3 install -r /root/requirements.txt \
     && rm /root/requirements.txt \
