@@ -14,7 +14,7 @@ RUN apk --no-cache add --virtual build-dependencies \
     gcc \
     libc-dev \
     libffi-dev \
-    mariadb-dev \
+    openssl-dev \
     python3-dev \
     && pip3 install -r  /root/requirements-deps.txt \
     && rm -rf .cache/pip \
