@@ -6,7 +6,7 @@ node {
     stage("Build Container") {
         dir('src_temp') {
             checkout scm
-            ver = sh(returnStdout: true, script:  "cat VERSION.txt").trim()
+            ver = sh(returnStdout: true, script:  "grep django requirements.txt | awk 'BEGIN {FS=\"==\"}{print \$2}'").trim()
             sh "docker build -t='${docker_img}' ."
         }    
     }
