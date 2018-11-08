@@ -1,2 +1,2 @@
 gevent
-PyMySQL
+mysql-connector-python
